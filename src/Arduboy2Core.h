@@ -12,8 +12,9 @@
 #endif
 
 // Pick One
-#define IPS240
-#define IPS135
+#define DFROBOT_TOLED_BEETLEC3
+//#define IPS240
+//#define IPS135
 // #define EPAPER130
 
 #if defined(IPS135)
@@ -27,6 +28,10 @@
 #define INTERLACED_UPDATE
 //#define GAMEPAD
 #define PS3GAMEPAD
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define BUTTONS_RESISTOR_LADDER
 #elif defined(EPAPER130)
 #define SCREEN_WIDTH 250
 #define SCREEN_HEIGHT 122 // 122 VIS
@@ -42,6 +47,11 @@
 #include "TFT_eSPI.h"
 #elif defined(IPS240)
 #include "TFT_eSPI.h"
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+#include <U8g2lib.h>
+#define OLED_DC 1
+#define OLED_CS 7
+#define OLED_RST 2
 #elif defined(EPAPER130)
 #include <GxEPD2_BW.h>
 #include <Fonts/FreeMonoBold9pt7b.h>

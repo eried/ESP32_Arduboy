@@ -12,6 +12,8 @@ TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(IPS135)
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+U8G2_SSD1309_128X64_NONAME2_F_4W_HW_SPI u8g2(/* rotation=*/U8G2_R0, /* cs=*/ OLED_CS, /* dc=*/ OLED_DC,/* reset=*/OLED_RST);
 #elif defined(EPAPER130)
 GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/17, /*RST=*/16, /*BUSY=*/4)); // GDEH0213B73
 #endif
@@ -90,6 +92,8 @@ void Arduboy2Core::boot()
 
 #if defined(EPAPER130)
   displayEPaper.init(115200);
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+  u8g2.begin();
 #else
   screen.begin();
   delay(200);
@@ -118,6 +122,8 @@ void Arduboy2Core::boot()
   {
     displayEPaper.fillScreen(GxEPD_WHITE);
   } while (displayEPaper.nextPage());
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+  // Clean screen
 #else
   screen.fillScreen(TFT_BLACK);
 #endif
@@ -573,7 +579,18 @@ uint8_t Arduboy2Core::buttonsState()
       buttons |= B_BUTTON;
     } // b?
   }
+#elif defined(BUTTONS_RESISTOR_LADDER)
+static byte getReadShiftAnalog()
+{
+  int i = analogRead(3);
 
+  if(i < 850 && i > 810) buttons |= UP_BUTTON;
+  if(i < 145 && i > 105) buttons |= DOWN_BUTTON;
+  if(i < 299 && i > 259) buttons |= LEFT_BUTTON;
+  if(i < 495 && i > 455) buttons |= RIGHT_BUTTON;
+  if(i < 2260 && i > 2220) buttons |= A_BUTTON;
+  if(i < 1500 && i > 1460) buttons |= B_BUTTON;
+}
 #else
   // Initial Setup
   if (inputSetup)

@@ -14,6 +14,8 @@ extern TFT_eSPI screen;
 extern TFT_eSPI screen;
 #elif defined(IPS135)
 extern TFT_eSPI screen;
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+extern U8G2_SSD1309_128X64_NONAME2_F_4W_HW_SPI u8g2;
 #elif defined(EPAPER130)
 extern GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper; // GDEH0213B73
 #endif
@@ -89,6 +91,8 @@ void Arduboy2Base::flashlight()
 #if defined(EPAPER130)
 //display.setFullWindow();
 //display.firstPage();
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+//something
 #else
   screen.fillScreen(TFT_WHITE);
 #endif
@@ -978,7 +982,32 @@ static void updateInterlaceScreen(bool *theBuffer)
   displayEPaper.setPartialWindow(0,0,SCREEN_WIDTH,SCREEN_HEIGHT+6);
   updateEPaper(theBuffer);
 }
+#elif defined(DFROBOT_TOLED_BEETLEC3)
+static void updateBuffer(bool *theBuffer) {
+  //displayEPaper.firstPage();
+  /*do
+  {*/
+    int i = 0;
+    for (int y = 0; y < SCREEN_HEIGHT; y++)
+      for (int x = 0; x < SCREEN_WIDTH; x++)
+      {
+        u8g2.setDrawColor(theBuffer[i++] ? 0 : 1);
+        u8g2.drawPixel(x,y);
+      }
+    
+  //} while (displayEPaper.nextPage());
+    u8g2.sendBuffer();
+}
 
+static void updateFullScreen(bool *theBuffer)
+{
+  updateBuffer(theBuffer);
+}
+
+static void updateInterlaceScreen(bool *theBuffer)
+{
+  updateBuffer(theBuffer);
+}
 #else
 static void updateFullScreen(bool *theBuffer)
 {
