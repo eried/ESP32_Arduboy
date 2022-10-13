@@ -1,3 +1,19 @@
+# ESP32 port adapted to work with DFRobot Transparent OLED and ESP32-C3
+
+Beetle C3: https://www.dfrobot.com/product-2566.html
+
+Transparent OLED: https://www.dfrobot.com/product-2521.html
+
+![breakout_2](https://user-images.githubusercontent.com/1091420/195610816-c5627887-a3db-4d03-a6d8-0c33ae80b448.gif)
+
+The buttons are connected to pin 3 following http://www.ignorantofthings.com/2018/07/the-perfect-multi-button-input-resistor.html with resistors 1k Ohm for R1 and 32k, 15k, 8k, 4k, 2k and 1k for the buttons.
+
+![Capture](https://user-images.githubusercontent.com/1091420/195600701-64ef66a4-d1b3-43f1-a4dc-defe029ec771.JPG)
+
+## TODO:
+Implement detection of individual keys
+Think on sound/RGB led support (maybe on pin 10?)
+
 # ESP32 port of the ESPboy Arduboy2 library
 
 # ESPboy (ESP8266 gadget) port of the Arduboy2 library
