@@ -11,8 +11,8 @@ The buttons are connected to pin 3 following http://www.ignorantofthings.com/201
 ![Capture](https://user-images.githubusercontent.com/1091420/195600701-64ef66a4-d1b3-43f1-a4dc-defe029ec771.JPG)
 
 ## TODO:
-Implement detection of individual keys
-Think on sound/RGB led support (maybe on pin 10?)
+- [ ] Implement detection of individual keys
+- [ ] Think on sound/RGB led support (maybe on pin 10?)
 
 # ESP32 port of the ESPboy Arduboy2 library
 
