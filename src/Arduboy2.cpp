@@ -991,7 +991,7 @@ static void updateBuffer(bool *theBuffer) {
     for (int y = 0; y < SCREEN_HEIGHT; y++)
       for (int x = 0; x < SCREEN_WIDTH; x++)
       {
-        u8g2.setDrawColor(theBuffer[i++] ? 0 : 1);
+        u8g2.setDrawColor(theBuffer[i++] ? 1 : 0);
         u8g2.drawPixel(x,y);
       }
     
