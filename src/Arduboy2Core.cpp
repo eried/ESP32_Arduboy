@@ -580,17 +580,13 @@ uint8_t Arduboy2Core::buttonsState()
     } // b?
   }
 #elif defined(BUTTONS_RESISTOR_LADDER)
-static byte getReadShiftAnalog()
-{
   int i = analogRead(3);
-
   if(i < 850 && i > 810) buttons |= UP_BUTTON;
   if(i < 145 && i > 105) buttons |= DOWN_BUTTON;
   if(i < 299 && i > 259) buttons |= LEFT_BUTTON;
   if(i < 495 && i > 455) buttons |= RIGHT_BUTTON;
   if(i < 2260 && i > 2220) buttons |= A_BUTTON;
   if(i < 1500 && i > 1460) buttons |= B_BUTTON;
-}
 #else
   // Initial Setup
   if (inputSetup)
